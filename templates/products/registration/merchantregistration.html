@@ -1,0 +1,164 @@
+{% extends 'products/shared/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+
+    window.addEventListener("DOMContentLoaded", function(e) {
+  
+      var myForm = document.getElementById("example4");
+      var checkForm = function(e) {
+        
+        if(!this.terms.checked) {
+          alert("Please indicate that you accept the Terms and Conditions");
+          this.terms.focus();
+          e.preventDefault(); // equivalent to return false
+          return;
+        }
+      };
+  
+      // attach the form submit handler
+      myForm.addEventListener("submit", checkForm, false);
+  
+      var myCheckbox = document.getElementById("field_terms");
+      var myCheckboxMsg = "Please indicate that you accept the Terms and Conditions";
+  
+      // set the starting error message
+      myCheckbox.setCustomValidity(myCheckboxMsg);
+  
+      // attach checkbox handler to toggle error message
+      myCheckbox.addEventListener("change", function(e) {
+        this.setCustomValidity(this.validity.valueMissing ? myCheckboxMsg : "");
+      }, false);
+  
+    }, false);
+  
+  </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+
+  <div>
+    {% for message in messages %}
+    <h3>{{ message }}</h3>
+    {% endfor %}
+  </div>
+
+  
+    <div class="container" align-content: center;
+<br><br>
+        <h1 style="text-align: center;">Merchant Registration</h1>
+        <hr>
+        <form action="{% url 'merchantregistration' %}" method="post">
+          
+          {% csrf_token %}
+          <br>
+          <label for="first_name" >First Name</label><br>
+          <input type="text"  id="email" name="first_name" placeholder="enter your first name"><br>
+        
+          <label for="last_name" >Last Name</label><br>
+          <input type="text"  id="last_name" name="last_name" placeholder="enter your last name"><br>
+        
+          <label for="username" >Username</label><br>
+          <input type="text"  id="username" name="username" placeholder="enter your username"><br>
+        
+          <label for="password" >Password</label><br>
+          <input type="password"  id="password" name="password" placeholder="enter your password"><br><br>
+          
+          <label for="password" > Confirm Password</label><br>
+          <input type="password"  id="password2" name="password2" placeholder="confirm your password"><br>
+        
+
+          <label for="email" >Email</label><br>
+           <input type="email"  id="email" name="email" placeholder="enter your email address"><br>
+            
+
+          <label for="email" >Phone</label><br>
+          <input type="integer"  id="phone" name="phone" placeholder="enter your phone number"><br>
+        
+          <br>
+
+          <label for="address" >Address </label><br>
+          <input type="text"  id="address" name="address" placeholder="enter address"><br>
+
+          <br>
+
+          <label for="username" >Business Name</label><br>
+          <input type="text"  id="username" name="hotelname" placeholder="enter Business Name"><br>
+
+          <br>
+
+          
+
+        <h3>Business Type</h3>
+          <select class="form-dropdown validate[required]" id="businesstype" name="businesstype" style="width:310px" data-component="dropdown" required="">
+            <option value="" selected="selected"> Select </option>
+            <option value="Shop/Cafe"> Shop/Cafe </option>
+            <option value="Lending"> Restaurent </option>
+            <option value="Store"> Homely Food </option>
+            <option value="Rentals"> Others </option>
+            
+          </select>  
+            
+            <hr>
+          
+           
+              
+            <form id="example4" ...>
+             
+              <p><input id="field_terms" type="checkbox" required name="terms"> I accept the <u>Terms and Conditions</u></p>
+              
+              
+
+            
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+       
+    </div>
+    
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+
+    
+  </body>
+  
+</html>
+
+{% endblock content %}
+
+     <!-- Back to Top -->
+     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/counterup/counterup.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>

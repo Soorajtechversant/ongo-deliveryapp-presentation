@@ -1,0 +1,53 @@
+
+{% extends 'products/shared/base.html' %}
+{% block content %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<meta charset="UTF-8">
+
+
+{% if user.is_authenticated %}
+
+<div class="container">
+  <!-- <br><br><br>
+  <a href='/send_invoice'>Download Invoice </a>
+  <br><br><br>
+   -->
+  <a href='/modify'>Update your subscription to premium </a>
+  <br><br><br>
+  
+
+  <a href='/downgrade'>Downgrade your subscription </a>
+  <br><br><br>
+
+  <a href='/deletesub'>Do you want to delete subscription</a>
+  <br><br><br>
+  <a href='/pause'>Pause your payment</a>
+  <br><br><br>
+  <a href='/unpause'>Resume - your payment</a>
+  <br><br><br>
+  <!-- <a href='/upgrade'>upgrade your subscription to premium</a>
+  <br><br><br> -->
+  {% if cancel_at_period_end %}
+  Your membership will run to the end of your billing cycle.
+  <a href='/pause'>Pause your payment</a>
+
+  <br><br><br>
+ 
+  <!-- {% elif membership %}
+  <form action="{% url 'settings' %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Cancel_Membership?">
+  </form>
+  {% else %}
+  <a href="{% url 'settings' %}">Get a membership</a>
+  {% endif %} -->
+</div>
+{% else %}
+<h2> Please Log in to Buy product </h2>
+  <p>  Click here to login <a href="{% url 'products/registration/login' %}" class="nav-link">Login</a></li></li>
+  </p>
+
+{% endif %}
+{% endblock %}
