@@ -1,10 +1,10 @@
 {% extends 'products/shared/base.html' %}
 
-{% block content %}
+
 
 {% load static %}
 
-
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,22 +38,25 @@
                 {% for hotelname in hotel %}
 
                 <div class="container">
-  <div class="row">
-    <div class="col-sm">
-                    <h5 class="card-title">{{ hotelname.hotelname }}</h5>
-                    <img src="{{ hotelname.productpicture.url }}" class="card-img-top" alt="image">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ hotelname.food }}</h5>
-                        <p class="card-text">Ingredients : {{ hotelname.ingredients }}</p>
-                        <p class="card-text">Price : INR {{ hotelname.price}}</p>
+                  <div class="row">
+                    <div class="col-sm">
+                        <h5 class="card-title">{{ hotelname.hotelname }}</h5>
+                        <img src="{{ hotelname.productpicture.url }}" class="card-img-top" alt="image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ hotelname.food }}</h5>
+                            <p class="card-text">Ingredients : {{ hotelname.ingredients }}</p>
+                            <p class="card-text">Price : INR {{ hotelname.price}}</p>
 
-                        <a href="{% url 'cart:add_cart' hotelname.id %}" class="btn btn-secondary">Add to Cart</a>
+                            <a href="{% url 'cart:add_cart' hotelname.id %}" class="btn btn-secondary">Add to Cart</a>
+                        </div>
                     </div>
+                    <br>
+                  </div>
+                    <br>
                 </div>
-                <br>
+                {% endfor %}
+            </div>
         </div>
-    <br>
-</div></form></div>
     </form>
 
 

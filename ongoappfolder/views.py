@@ -456,10 +456,10 @@ class ForgotPasswordChange(View):
 
     def post(self, request, id):
         if request.method == 'POST':
-            old_password = request.POST['old_password']
+
             new_password = request.POST['new_password']
             repeat_password = request.POST['repeat_password']
-            print(old_password, new_password, repeat_password)
+
             if new_password == repeat_password:
                 try:
                     user = UserLoginDetails.objects.get(id=id)
