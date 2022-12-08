@@ -28,6 +28,9 @@ urlpatterns = [
 
     path('detail/<id>/', ProductDetailView.as_view(), name='detail'),
     
-
+    #forgot password urls
+    path('forgot-password/generate-otp/', GenerateOTP.as_view(), name='generate_otp'),
+    path('forgot-password/verify-otp/<int:id>', VerifyOTP.as_view(), name='verify_otp'),
+    path('forgot-password/change/<int:id>', ForgotPasswordChange.as_view(), name='forgot_password'),
     
 ]

@@ -16,8 +16,8 @@ class HotelForm(forms.ModelForm):
         owner = MerchantDetails.objects.get(
                     username__username=request.user.username)
         hotel = HotelName(food=self.cleaned_data['food'],ingredients=self.cleaned_data['ingredients'],price=self.cleaned_data['price'],hotelimage=self.cleaned_data['hotelimage'],productpicture=self.cleaned_data['productpicture'])
-        hotel.owner=owner
-        hotel.hotelname=owner.hotel_name
+        hotel.owner = owner
+        hotel.hotelname= owner.hotel_name
         
         hotel.save()
         return request
