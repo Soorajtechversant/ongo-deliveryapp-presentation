@@ -168,22 +168,20 @@ class Login(View):
             password = request.POST['password']
             try:
                 user_obj = UserLoginDetails.objects.get(username=username)
-
             except:
-                messages.info(request, 'Invalid credentials......')
+                messages.info(request, 'User with this username does not exists')
                 return redirect("login")
-
             user = auth.authenticate(username=username, password=password)
-
-            if user.user_type == "merchant":
+            if user is None:
+                messages.info(request, 'invalid password...')
+                return redirect("login")
+            elif user.user_type == "merchant":
                 auth.login(request, user)
                 return redirect('owner_index')
-            elif user is not None:
+            else:
                 auth.login(request, user)
                 return redirect("customer_index")
-            # else:
-            #     messages.info(request, 'Invalid Credentials......')
-            #     return redirect("login")
+
 
 # The logout class
 
