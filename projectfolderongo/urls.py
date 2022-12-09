@@ -22,7 +22,9 @@ from django.contrib.staticfiles.urls import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('ongoappfolder.urls' )),
+    path('subscription',include('subscription.urls' )),
     path('cart',include('cart.urls' )),
     path('payments/',include('payments.urls' )),
+    
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)#For serving uploaded files

@@ -7,5 +7,10 @@ from .views import *
 
 
 urlpatterns = [
-    path('pricing_page/', views.pricing_page, name='pricing_page'),
+  
+    path('subscription/',views.subscription,name='subscription'), 
+    path('premium',views.premium,name='premium'), 
+    path('auth/settings', views.settings, name='settings'),
+
+
 ]
