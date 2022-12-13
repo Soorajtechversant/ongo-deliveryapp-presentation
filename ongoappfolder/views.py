@@ -1,11 +1,4 @@
-from django.shortcuts import render
 from django.views import View
-# Create your views here.
-
-
-
-
-
 import os
 import stripe
 from django.shortcuts import render
@@ -179,9 +172,9 @@ class Login(View):
             elif user is not None:
                 auth.login(request, user)
                 return redirect("customer_index")
-            # else:
-            #     messages.info(request, 'Invalid Credentials......')
-            #     return redirect("login")
+            else:
+                messages.info(request, 'Invalid Credentials......')
+                return redirect("login")
 
 # The logout class
 
@@ -370,3 +363,24 @@ class MerchantApproval(LoginRequiredMixin, View):
             print("something went wrong")
 
 
+
+# class MerchantSubscriptionIndex(LoginRequiredMixin, ListView):
+
+#     context_object_name = 'subscription'
+#     queryset = MerchantDetails.objects.filter(is_approved=False)
+
+#     template_name = 'admin/approvals.html'
+
+
+# class MerchantsubscriptionApproval(LoginRequiredMixin, View):
+
+#     def get(self, request, id):
+
+#         merchant = MerchantDetails.objects.get(id=id)
+#         try:
+#             merchant.is_subscription = True
+#             merchant.save()
+#             return redirect('addproduct')
+#             # approvals = MerchantDetails.objects.filter(is_approved=False)
+#         except:
+#             print("something went wrong")
