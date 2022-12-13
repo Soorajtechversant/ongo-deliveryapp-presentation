@@ -13,6 +13,8 @@ class UserLoginDetails(AbstractUser):
     phn_number = models.CharField(max_length=255,blank=True)
     password = models.CharField(max_length=255,blank=True)
     user_type = models.CharField(max_length=255,blank=True)
+    otp = models.IntegerField(blank=True, null=True, default=None)
+    otp_activation_key = models.CharField(max_length=255, blank=True, null=True)
     
 
     def __str__(self):
@@ -33,6 +35,7 @@ class MerchantDetails(models.Model):
     hotel_name = models.CharField(max_length=255,blank=True)
     bussiness_type = models.CharField(max_length=255,blank=True)
     is_approved = models.BooleanField(default=False)
+    is_subscribed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.first_name

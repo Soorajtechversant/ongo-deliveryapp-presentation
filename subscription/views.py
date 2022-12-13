@@ -6,8 +6,12 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect, render, get_object_or_404
 import json
+from django.urls import reverse
+from django.views.generic import TemplateView
 
 from django.http import HttpResponse, JsonResponse
+
+from ongoappfolder.models import MerchantDetails
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -43,8 +47,8 @@ def subscription(request):
             }],
             mode='subscription',
             allow_promotion_codes=True,
-            success_url='http://127.0.0.1:8000/success?session_id={CHECKOUT_SESSION_ID}',
-            cancel_url='http://127.0.0.1:8000/cancel',
+            success_url=request.build_absolute_uri(reverse('subscription:success'))+'?session_id={CHECKOUT_SESSION_ID}',
+            cancel_url=request.build_absolute_uri(reverse('subscription:cancel')),
         )
 
         return render(request, 'subscription/subscription.html', {'final_inr': final_inr, 'session_id': session.id})
@@ -78,3 +82,17 @@ def settings(request):
     'cancel_at_period_end':cancel_at_period_end})
 
 
+class SuccessView(TemplateView):
+    template_name = "success.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(SuccessView, self).get_context_data(**kwargs)
+        merchant = MerchantDetails.objects.get(username__username=self.request.user.username)
+        merchant.is_subscribed = True
+        merchant.save()
+        context['merchant'] = merchant
+        return context
+
+
+class CancelView(TemplateView):
+    template_name = "cancel.html"

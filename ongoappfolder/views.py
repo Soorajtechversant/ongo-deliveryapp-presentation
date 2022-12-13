@@ -1,6 +1,8 @@
 from django.views import View
 import os
 import stripe
+import pyotp
+
 from django.shortcuts import render
 from django.views.generic import View
 from django.views import View
@@ -122,12 +124,12 @@ class Customer_index(View):
         if request.user.is_staff:
             context = {
                 'hotel': HotelName.objects.all(),
-                'data':UserLoginDetails.objects.get(username=request.user.username)
+                'data': UserLoginDetails.objects.get(username=request.user.username)
             }
         else:
             context = {
                 'hotel': HotelName.objects.all(),
-                'data':UserDetails.objects.get(username__username=request.user.username)
+                'data': UserDetails.objects.get(username__username=request.user.username)
             }
 
         # print(HotelName.objects.all())
@@ -159,22 +161,19 @@ class Login(View):
             password = request.POST['password']
             try:
                 user_obj = UserLoginDetails.objects.get(username=username)
-
             except:
-                messages.info(request, 'Invalid credentials......')
+                messages.info(request, 'User with this username does not exists')
                 return redirect("login")
-
             user = auth.authenticate(username=username, password=password)
-
-            if user.user_type == "merchant":
+            if user is None:
+                messages.info(request, 'invalid password...')
+                return redirect("login")
+            elif user.user_type == "merchant":
                 auth.login(request, user)
                 return redirect('owner_index')
-            elif user is not None:
+            else:
                 auth.login(request, user)
                 return redirect("customer_index")
-            else:
-                messages.info(request, 'Invalid Credentials......')
-                return redirect("login")
 
 # The logout class
 
@@ -230,7 +229,7 @@ class CustomerProfile(LoginRequiredMixin, ListView):
         #         os.remove(data.profile_pic.path)
         
         if request.FILES:
-            data.profile_pic= request.FILES['profile_pic'] 
+            data.profile_pic = request.FILES['profile_pic']
 
 
         data.first_name = request.POST['first_name']
@@ -272,7 +271,7 @@ class Owner_index(LoginRequiredMixin, TemplateView):
         merchant = MerchantDetails.objects.get(
             username__username=self.request.user.username)
         context["hotelname"] = HotelName.objects.filter(owner=merchant)
-        context['data']=merchant
+        context['data'] = merchant
         print(context)
 
         print(merchant)
@@ -290,7 +289,8 @@ class Add_product(LoginRequiredMixin, View):
 
     def get(self, request):
         HotelForm = self.form_class()
-        return render(request, "products/productshop_owner/add_product.html", {'form': HotelForm})
+        merchant = MerchantDetails.objects.get(username__username=request.user.username)
+        return render(request, "products/productshop_owner/add_product.html", {'form': HotelForm, 'merchant': merchant})
 
     def post(self, request):
         if request.method == 'POST':
@@ -362,25 +362,106 @@ class MerchantApproval(LoginRequiredMixin, View):
         except:
             print("something went wrong")
 
+#forgot password
+
+def generate_random_otp():
+    secret = pyotp.random_base32()
+    totp = pyotp.TOTP(secret, interval=120)
+    OTP = totp.now()
+    return {"totp": secret, "otp": OTP}
 
 
-# class MerchantSubscriptionIndex(LoginRequiredMixin, ListView):
+class GenerateOTP(View):
+    def get(self, request):
+        return render(request, 'products/registration/forgot_password_generate_otp.html')
 
-#     context_object_name = 'subscription'
-#     queryset = MerchantDetails.objects.filter(is_approved=False)
+    def post(self, request):
+        if request.method == 'POST':
 
-#     template_name = 'admin/approvals.html'
+            phone = request.POST['phn_numer']
+            print('##############################################')
+            print(phone)
+            try:
+                user = UserLoginDetails.objects.get(phn_number=phone)
+
+            except:
+                messages.info(request, 'This is not a registered phone number......')
+                return redirect("generate_otp")
+            try:
+                key = generate_random_otp()
+                print('***************************************')
+                print(key)
+                user.otp = key['otp']
+                user.otp_activation_key = key['totp']
+
+                user.save()
+                print('***************************************')
+                print(user.otp_activation_key)
+                return render(request, 'products/registration/forgot_password_otp_verification.html',
+                              context={'user_id': user.id})
+            except:
+                messages.info(request, 'something went wrong')
+                return redirect("generate_otp")
 
 
-# class MerchantsubscriptionApproval(LoginRequiredMixin, View):
+class VerifyOTP(View):
+    def get(self, request, id):
+        return render(request, 'products/registration/forgot_password_otp_verification.html', context={'user_id': id})
 
-#     def get(self, request, id):
+    def post(self, request, id):
+        if request.method == 'POST':
 
-#         merchant = MerchantDetails.objects.get(id=id)
-#         try:
-#             merchant.is_subscription = True
-#             merchant.save()
-#             return redirect('addproduct')
-#             # approvals = MerchantDetails.objects.filter(is_approved=False)
-#         except:
-#             print("something went wrong")
+            otp = request.POST['otp']
+            print('##############################################')
+            print(otp)
+            try:
+                user = UserLoginDetails.objects.get(otp=otp)
+            except:
+                messages.info(request, 'wrong OTP......')
+                return render(request, 'products/registration/forgot_password_otp_verification.html',
+                              context={'user_id': id})
+            try:
+                activation_key = user.otp_activation_key
+                totp = pyotp.TOTP(activation_key, interval=120)
+                verify = totp.verify(otp)
+                print('***************************************')
+                print(totp)
+                if verify:
+                    print('***************************************')
+                    print(user.otp_activation_key)
+                    return render(request, 'products/registration/forgot_password_change.html',
+                                  context={'user_id': user.id})
+                else:
+                    messages.info(request, 'otp expired')
+                    return redirect("generate_otp")
+            except:
+                messages.info(request, 'something went wrong')
+                return redirect("generate_otp")
+
+
+class ForgotPasswordChange(View):
+    def get(self, request, id):
+        return render(request, 'products/registration/forgot_password_change.html', context={'user_id': id})
+
+    def post(self, request, id):
+        if request.method == 'POST':
+
+            new_password = request.POST['new_password']
+            repeat_password = request.POST['repeat_password']
+
+            if new_password == repeat_password:
+                try:
+                    user = UserLoginDetails.objects.get(id=id)
+                    print(user)
+                    user.set_password(new_password)
+                    user.save()
+                except:
+                    messages.info(request, 'something went wrong')
+                    return render(request, 'products/registration/forgot_password_change.html', context={'user_id': id})
+                messages.info(request, 'successfully changed password')
+                return redirect("login")
+            else:
+                messages.info(request, 'password does not match')
+                return render(request, 'products/registration/forgot_password_change.html', context={'user_id': id})
+
+
