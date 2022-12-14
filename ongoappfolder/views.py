@@ -138,6 +138,23 @@ class Customer_index(View):
         
         return render(request, 'home.html', context)
 
+
+class About(View):
+     def get(self, request): 
+        
+        
+        return render(request, 'team/about.html')
+
+class Contact(View):
+    def get(self, request): 
+        
+        
+        return render(request, 'team/contact.html')
+
+class Services(View):
+     def get(self, request): 
+        return render(request, 'team/service.html')
+
 class Index(View):
     
     def get(self, request): 

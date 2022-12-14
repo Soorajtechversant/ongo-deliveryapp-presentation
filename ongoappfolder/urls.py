@@ -28,6 +28,10 @@ urlpatterns = [
 
     path('detail/<id>/', ProductDetailView.as_view(), name='detail'),
     
+    
+    path('about/', About.as_view(), name='about'),
+    path('services/', Services.as_view(), name='services'),
+    path('contact/', Contact.as_view(), name='contact'),
     #forgot password urls
     path('forgot-password/generate-otp/', GenerateOTP.as_view(), name='generate_otp'),
     path('forgot-password/verify-otp/<int:id>', VerifyOTP.as_view(), name='verify_otp'),

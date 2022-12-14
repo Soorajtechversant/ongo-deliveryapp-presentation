@@ -6,6 +6,20 @@
 
 
 <body>
+  <div class="container-xxl py-5 bg-dark hero-header mb-5">
+    <div class="container text-center my-5 pt-5 pb-4">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Log-In</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center text-uppercase">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Sign-Up</a></li>
+                <li class="breadcrumb-item"><a href="#">About-Us</a></li>
+               
+            </ol>
+        </nav>
+    </div>
+</div>
+</div>
    
 
     <div class="container" >
@@ -14,9 +28,6 @@
       {% if user.is_authenticated %}
       <h3>{{ index }}</h3>
           {% endif %}
-
-        <h1 style="text-align: center;">Login</h1>
-        <hr>
         <div>
           {% for message in messages %}
           <h3 style="color: red; size:12px">{{ message }}</h3>
