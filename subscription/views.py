@@ -14,6 +14,7 @@ from django.http import HttpResponse, JsonResponse
 from ongoappfolder.models import MerchantDetails
 
 
+
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 

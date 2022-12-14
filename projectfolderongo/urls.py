@@ -6,7 +6,7 @@ from django.contrib.staticfiles.urls import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('ongoappfolder.urls' )),
-    path('subscription',include(('subscription.urls','subscription'),namespace='subscription')),
+    path('subscription',include('subscription.urls')),
     path('cart',include('cart.urls' )),
     path('payments/',include('payments.urls' )),
     path('chat/', include('chat.urls')),

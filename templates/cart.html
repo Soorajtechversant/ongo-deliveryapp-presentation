@@ -115,7 +115,7 @@ Ongo Dlivery System
                     <tr>
                         <td class="text-left">
                             Your total is : Rs. <strong> {{total}} </strong>
-                            <form action="{% url 'payments:create-checkout-session'   %}" method="POST">
+                            <form action="{% url 'payments:create-checkout-session' cart_obj.id  %}" method="POST">
                                 {% csrf_token %}
                                 <button class="btn btn-primary" type="submit">Checkout</button>
                             </form>

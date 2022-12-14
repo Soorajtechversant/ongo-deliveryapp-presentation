@@ -7,6 +7,8 @@ from django.urls import reverse_lazy , reverse
 
 # from cart.views import cart_detail
 from django.views.generic import TemplateView
+from cart.models import Cart, CartItem
+from .models import Report
 
 
 
@@ -33,7 +35,7 @@ class CreateCheckoutSessionView(generic.View):
                 },
             ],
             mode='payment',
-            success_url= YOUR_DOMAIN + 'payments/success/',
+            success_url= YOUR_DOMAIN + 'payments/success/' + str(kwargs['id']),
             # success_url=reverse_lazy('success'),
             # success_url = reverse('success') ,
             cancel_url=YOUR_DOMAIN + 'cancel/',
@@ -45,6 +47,14 @@ class CreateCheckoutSessionView(generic.View):
 class SuccessView(TemplateView):
    
     template_name = "success.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(SuccessView, self).get_context_data(**kwargs)
+        cart = Cart.objects.get(id=kwargs['id'])
+        cart_items = CartItem.objects.filter(cart=cart)
+        for items in cart_items:
+            Report.objects.create(cart_id=cart, cart_items=items, amount=items.product.price, hotel=items.product.owner)
+        return context
 
 
 class CancelView(TemplateView):

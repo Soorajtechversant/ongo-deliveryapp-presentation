@@ -5,6 +5,7 @@ from .views import *
 
 
 
+app_name = 'subscription'
 
 urlpatterns = [
   

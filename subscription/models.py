@@ -1,5 +1,5 @@
 from django.db import models
-from ongoappfolder.models import *
+from ongoappfolder.models import MerchantDetails
 from django.contrib.auth.models import User
 
 

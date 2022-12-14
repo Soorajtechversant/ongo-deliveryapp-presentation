@@ -61,21 +61,21 @@ def add_cart(request,product_id):
 #         cart_item.save()
 #     return redirect('cart:cart_detail')
 
-def cart_detail(request,total=0,counter=0,cart_items=None):
+def cart_detail(request, total=0, counter=0, cart_items=None):
     if request.user.user_type == 'customer':
         data = UserDetails.objects.get(username__username=request.user.username)
     else:
         data = MerchantDetails.objects.get(username__username=request.user.username)
     try:
-        cart=Cart.objects.get(cart_id=_cart_id(request))
-        cart_items=CartItem.objects.filter(cart=cart,active=True)
+        cart = Cart.objects.get(cart_id=_cart_id(request))
+        cart_items = CartItem.objects.filter(cart=cart, active=True)
         for cart_item in cart_items:
             total += (cart_item.product.price * cart_item.quantity)
             counter += cart_item.quantity
-        request.session['total'] = int(total)     
+        request.session['total'] = int(total)
     except ObjectDoesNotExist:
-        pass
-    return render(request,'cart.html',dict(cart_items=cart_items,total=total,counter=counter,data=data))
+        return render(request, 'cart.html', dict(cart_items=cart_items, total=total, counter=counter, data=data))
+    return render(request, 'cart.html', dict(cart_obj=cart, cart_items=cart_items, total=total, counter=counter, data=data))
 
 def cart_remove(request,product_id):
     cart=Cart.objects.get(cart_id=_cart_id(request))

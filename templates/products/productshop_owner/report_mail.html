@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+
+
+    hr {
+        position: relative;
+        top: 20px;
+        border: none;
+        height: 18px;
+        background: blue;
+        margin-bottom: 50px;
+    }
+    </style>
+<body>
+    <div class="container">
+        <br><br>
+        <h1 style="text-align: center;">Hi {{merchant.username}}
+        </h1>
+        <div class="container">
+
+            <h4 class="text-center alert alert-info">Todays Order Details</h4>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+
+                {% for report in reports %}
+
+                <div class="container">
+                  <div class="row">
+                      <hr>
+                      <h6 class="text-center alert alert-info">Order Details</h6>
+                    <div class="col-sm">
+                        <h5 class="card-title">Cart Id : {{ report.cart_id }}</h5>
+                        <img src="{{ hotelname.productpicture.url }}" class="card-img-top" alt="image">
+                        <div class="card-body">
+                            <h5 class="card-title">Item : {{ report.cart_items.product.food }}</h5>
+                            <p class="card-text">Owner : {{ report.hotel }}</p>
+                            <p class="card-text">Price : INR {{ report.amount }}</p>
+                            <p class="card-text">Date : {{ report.purchase_date }}</p>
+
+                        </div>
+                    </div>
+                    <br>
+                  </div>
+                    <br>
+                </div>
+                {% endfor %}
+            </div>
+            <hr style="height:18px;color:blue;">
+            <h4 style="float:right;height:18px;color:blue;" class="text-center alert alert-info">Todays Profit : {{profit}}</h4>
+        </div>
+
+</body>
+</html>
