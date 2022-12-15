@@ -18,13 +18,9 @@ from .send_sms import sendsms
 from django.urls import reverse
 
 
-class Index(View):
-    
-    def get(self, request): 
-        
-        
-        return render(request, 'home.html')
 
+    
+  
 class HotelProducts(View):
     @method_decorator(login_required)
     def get(self, request, name):
@@ -142,28 +138,43 @@ class Customer_index(View):
 class About(View):
      def get(self, request): 
         
+        context = {
+                'hotel': HotelName.objects.all(),
+                'data': UserDetails.objects.get(username__username=request.user.username)
+            }
+
+        return render(request, 'team/about.html' , context)
+
         
-        return render(request, 'team/about.html')
 
 class Contact(View):
     def get(self, request): 
         
+        context = {
+                'hotel': HotelName.objects.all(),
+                'data': UserDetails.objects.all( )
+            }
         
-        return render(request, 'team/contact.html')
+        return render(request, 'team/contact.html' , context)
 
 class Services(View):
      def get(self, request): 
-        return render(request, 'team/service.html')
-
-class Index(View):
-    
-    def get(self, request): 
         context = {
-            'hotel': HotelName.objects.all(),
-        }
-        # print(HotelName.objects.all())
+                'hotel': HotelName.objects.all(),
+                'data': UserDetails.objects.get(username__username=request.user.username)
+            }
+
+        return render(request, 'team/service.html' ,context)
+
+# class Index(View):
+    
+#     def get(self, request): 
+#         context = {
+#             'hotel': HotelName.objects.all(),
+#         }
+#         # print(HotelName.objects.all())
         
-        return render(request, 'home.html', context)
+#         return render(request, 'home.html', context)
 
 # Common Login page
 
@@ -198,7 +209,7 @@ class Login(View):
 class Logout(LoginRequiredMixin, View):
     def get(self, request):
         auth.logout(request)
-        return redirect('index')
+        return redirect('customer_index')
 
 
 @login_required
@@ -257,7 +268,7 @@ class CustomerProfile(LoginRequiredMixin, ListView):
 
         messages.success(request, " Updated Successfully")
 
-        return redirect('index')
+        return redirect('customer_index')
 
     def get(self, request):
         # data = UserLoginDetails.objects.get(username=request.user.username)

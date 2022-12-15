@@ -1,4 +1,5 @@
 {% load static%}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,49 +35,13 @@
 
 <body>
 
-    <div class="container-xxl bg-dark p-0">
-      
 
         {% if user.is_authenticated and user.is_staff %}
 
-        <div class="container-xxl position-relative p-0">
-          <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
-              <a href="" class="navbar-brand p-0">
-                  <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"></i>Ongo-Delivery</h1>
-            
-              </a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                  <span class="fa fa-bars"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarCollapse">
-                  <div class="navbar-nav ms-auto py-0 pe-4">
-                      <a href="{% url 'owner_index'  %}" class="nav-item nav-link active">Home</a>
-                      <a href="{% url 'add_product'  %}" class="nav-item nav-link">Add Product</a>
-                      <a href="{% url 'approvals'  %}" class="nav-item nav-link">Approvals</a>
-                      <a href="{% url 'logout'  %}" class="nav-item nav-link">Logout</a>
-                      
-                      <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu m-0">
-                            <a href="{% url 'registration'  %}" class="dropdown-item">Booking</a>
-                            <a href="{% url 'registration'  %}" class="dropdown-item">Our Team</a>
-                            <a href="{% url 'registration'  %}" class="dropdown-item">Testimonial</a>
-                        </div>
-                    </div>
-
-
-
-   
-
-     
-
-
-        {% elif request.user.user_type == 'customer' %}
-
-
+       
         <div class="container-xxl position-relative p-0">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
-                <a href="" class="navbar-brand p-0">
+                <a href="{% url 'owner_index'  %}" class="navbar-brand p-0">
                     <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"></i>Ongo-Delivery</h1>
 
                 </a>
@@ -85,10 +50,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
-                        <a href="{% url 'index'  %}" class="nav-item nav-link active">Home</a>
+                        <a href="{% url 'owner_index'  %}" class="nav-item nav-link active">Home</a>
                         <a href="{% url 'about'  %}" class="nav-item nav-link">About</a>
                         <a href="{% url 'services'  %}" class="nav-item nav-link">Service</a>
-                        <a href="{% url 'registration'  %}" class="nav-item nav-link">Menu</a>
                         <a href="{% url 'profile'  %}" class="nav-item nav-link">Profile</a>
                         <a href="{% url 'chat:chat'  %}" class="nav-item nav-link">Chat</a>
                         <a href="{% url 'logout'  %}" class="nav-item nav-link">Logout</a>
@@ -105,11 +69,71 @@
 
                         <a href="{% url 'contact'  %}" class="nav-item nav-link">Contact</a>
                     </div>
-                    <a href="{% url 'cart:cart_detail'  %}" class="btn btn-primary py-2 px-4">Cart</a>
+                         
+
+
+     
+
                 </div>
+            </div>
             </nav>
 
-           
+
+   
+
+     
+
+
+        {% elif request.user.user_type == 'customer' %}
+       
+
+        <div class="container-xxl position-relative p-0">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
+                <a href="{% url 'customer_index'  %}"  class="navbar-brand p-0">
+                    <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"></i>Ongo-Home</h1>
+
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto py-0 pe-4">
+                      
+                        <a href="{% url 'customer_index'  %}" class="nav-item nav-link">Home</a>
+                        <a href="{% url 'profile'  %}" class="nav-item nav-link" >Hello {{user.username}}
+                            <img src="{{ data.profile_pic.url }}"  alt="img" class="rounded-circle p- bg-primary" height="40" width="40">
+                        </a>
+                       
+                        
+                   
+                        <a href="{% url 'about'  %}" class="nav-item nav-link">About</a>
+                        <a href="{% url 'services'  %}" class="nav-item nav-link">Service</a>
+                        <a href="{% url 'profile'  %}" class="nav-item nav-link">Profile</a>
+                        <a href="{% url 'chat:chat'  %}" class="nav-item nav-link">Chat</a>
+                        <a href="{% url 'logout'  %}" class="nav-item nav-link">Logout</a>
+
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                            <div class="dropdown-menu m-0">
+                                <a href="{% url 'registration'  %}" class="dropdown-item">Booking</a>
+                                <a href="{% url 'registration'  %}" class="dropdown-item">Our Team</a>
+                                <a href="{% url 'registration'  %}" class="dropdown-item">Testimonial</a>
+                            </div>
+                        </div>
+                        
+
+
+                        
+</div>
+                
+               
+                    <a href="{% url 'cart:cart_detail'  %}" class="btn btn-primary py-2 px-4">Cart</a>
+                </div>
+
+
+
+            </nav>
+
 
         <!-- for admin -->
         {% elif request.user.user_type == 'merchant' %}
@@ -129,7 +153,7 @@
                         <a href="{% url 'about'  %}" class="nav-item nav-link">About</a>
                         <a href="{% url 'add_product'  %}" class="nav-item nav-link">Add Product</a>
                         <a href="{% url 'services'  %}" class="nav-item nav-link">Service</a>
-                        <a href="{% url 'registration'  %}" class="nav-item nav-link">Menu</a>
+                        <a href="{% url 'profile'  %}" class="nav-item nav-link">Profile</a>
                         <a href="{% url 'chat:chat'  %}" class="nav-item nav-link">Chat</a>
                         <a href="{% url 'logout'  %}" class="nav-item nav-link">Logout</a>
 
@@ -167,7 +191,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
-                        <a href="{% url 'index'  %}" class="nav-item nav-link active">Home</a>
+                        <a href="{% url 'customer_index'  %}" class="nav-item nav-link active">Home</a>
                         <a href="{% url 'about'  %}" class="nav-item nav-link">About</a>
                         <a href="{% url 'services'  %}" class="nav-item nav-link">Service</a>
                         <a href="{% url 'registration'  %}" class="nav-item nav-link">Menu</a>
@@ -193,8 +217,18 @@
 
                         <a href="{% url 'registration'  %}" class="nav-item nav-link">Contact</a>
                     </div>
-                    <a href="{% url 'registration'  %}" class="btn btn-primary py-2 px-4">Book A Table</a>
+                  
                 </div>
+
+                <div class="input-group">
+                    <div class="form-outline">
+                      <input type="search" id="form1" class="form-control" />
+                      <label class="form-label" for="form1">Search</label>
+                    </div>
+                    <button type="button" class="btn btn-primary">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
             </nav>
 
         <!-- Navbar & Hero End -->

@@ -35,39 +35,25 @@
             <div class="row row-cols-1 row-cols-md-3 g-4">
 
                 {% for hotelname in hotel %}
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ hotelname.productpicture.url }}" class="card-img-top" alt="image">
+                    
+                    <div class="card-body">
+                        
+                        <h5 class="card-title">{{ hotelname.hotelname }}</h5>
+
+                        <h5 class="card-title">{{ hotelname.food }}</h5>
+                        <p class="card-text">Ingredients : {{ hotelname.ingredients }}</p>
+                        <p class="card-text">Price : INR {{ hotelname.price}}</p>
 
 
-                <div class="container">
-                    <div class="row">
-                        <div class="card-group">
-
-
-                            <img src="{{ hotelname.productpicture.url }}" class="card-img-top" alt="image">
-
-                            <div class="card-body">
-                                <h5 class="card-title">{{ hotelname.hotelname }}</h5>
-
-                                <h5 class="card-title">{{ hotelname.food }}</h5>
-                                <p class="card-text">Ingredients : {{ hotelname.ingredients }}</p>
-                                <p class="card-text">Price : INR {{ hotelname.price}}</p>
-
-                                <a href="{% url 'cart:add_cart' hotelname.id %}" class="btn btn-secondary">Add to
-                                    Cart</a>
-
-
-                            </div>
-                        </div>
-
+                      <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
                     </div>
-
-
-                    <br>
-
-
-                </div>
-            </div>
-
-
+                      <a href="{% url 'cart:add_cart' hotelname.id %}" class="btn btn-primary">Add to
+                        Cart</a>
+                   
+                  </div>
+                  <br>
             {% endfor %}
 
     </div>

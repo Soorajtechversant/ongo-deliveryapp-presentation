@@ -1,3 +1,6 @@
+{% extends 'products/shared/base.html' %}
+
+{% block content %}
 
 
 
@@ -6,8 +9,7 @@
 <html>
 	<head>
 		<title>Chat</title>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
+		
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -22,40 +24,24 @@
     
 	<!--Coded With Love By Mutiullah Samim-->
 	<body>
-
-        <div class="container-xxl position-relative p-0">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
-                <a href="" class="navbar-brand p-0">
-                    <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"></i>Ongo-Delivery</h1>
-    
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                    <span class="fa fa-bars"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav ms-auto py-0 pe-4">
-                        <a href="{% url 'customer_index'  %}" class="nav-item nav-link active">Home</a>
-                        <a href="{% url 'about'  %}" class="nav-item nav-link">About</a>
-                        <a href="{% url 'services'  %}" class="nav-item nav-link">Service</a>
-                        <a href="{% url 'registration'  %}" class="nav-item nav-link">Menu</a>
-                        <a href="{% url 'approvals'  %}" class="nav-item nav-link">Approvals</a>
-                        <a href="{% url 'chat:chat'  %}" class="nav-item nav-link">Chat</a>
-                        <a href="{% url 'logout'  %}" class="nav-item nav-link">Logout</a>
-    
-    
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu m-0">
-                                <a href="{% url 'registration'  %}" class="dropdown-item">Booking</a>
-                                <a href="{% url 'registration'  %}" class="dropdown-item">Our Team</a>
-                                <a href="{% url 'registration'  %}" class="dropdown-item">Testimonial</a>
-                            </div>
-                        </div>
-    
-    
-                    </div>
+       
+    <div class="container-xxl py-5 bg-dark hero-header mb-5">
+        <div class="container text-center my-5 pt-5 pb-4">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Chat </h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center text-uppercase">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Sign-Up</a></li>
+                    <li class="breadcrumb-item"><a href="#">About-Us</a></li>
+                   
+                </ol>
             </nav>
+        </div>
+    </div>
+    </div>
 
+
+        
             
     {% if user.is_authenticated %}
         <h1 style="text-align: end; padding-right: 10px">Logged in as : {{ user.username }}</h1>
@@ -198,3 +184,7 @@
 
 	</body>
 </html>
+
+
+
+{% endblock content %}

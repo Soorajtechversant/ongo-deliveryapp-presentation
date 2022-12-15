@@ -7,9 +7,6 @@
 
     <title>Profile page</title>
  </head>
-
-<br>
-
 <body>
 
     <div class="container-xxl py-5 bg-dark hero-header mb-5">
@@ -39,10 +36,10 @@
 
                                     {% if data.profile_pic %}
                                     <img src="{{ data.profile_pic.url }}" alt="img"
-                                        class="rounded-circle p-1 bg-primary" width="110">
+                                        class="rounded-circle p-1 bg-primary" height="200" width="200">
                                     {% else %}
                                     <img src="{% static 'img/download.png'%}" alt="img"
-                                        class="rounded-circle p-1 bg-primary" height="190" width="200">
+                                        class="rounded-circle p-1 bg-primary" height="200" width="200">
                                     {% endif %}
 
                                     <div class="mt-3">
