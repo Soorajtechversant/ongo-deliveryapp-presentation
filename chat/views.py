@@ -12,7 +12,7 @@ def messages_page(request):
     context = {
         'Threads': threads,
         'hotel': HotelName.objects.all(),
-        'data': UserDetails.objects.get(username__username=request.user.username)
+        'data': UserDetails.objects.all()
     }
     return render(request, 'messages.html', context)
 context = {

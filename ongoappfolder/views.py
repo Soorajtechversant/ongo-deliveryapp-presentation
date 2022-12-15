@@ -125,7 +125,7 @@ class Customer_index(View):
         else:
             context = {
                 'hotel': HotelName.objects.all(),
-                'data': UserDetails.objects.get(username__username=request.user.username)
+                'data': UserDetails.objects.get(username=request.user.username)
             }
 
         # print(HotelName.objects.all())
@@ -140,7 +140,7 @@ class About(View):
         
         context = {
                 'hotel': HotelName.objects.all(),
-                'data': UserDetails.objects.get(username__username=request.user.username)
+                'data': UserDetails.objects.all()
             }
 
         return render(request, 'team/about.html' , context)
@@ -161,7 +161,7 @@ class Services(View):
      def get(self, request): 
         context = {
                 'hotel': HotelName.objects.all(),
-                'data': UserDetails.objects.get(username__username=request.user.username)
+                'data': UserDetails.objects.get(username=request.user.username)
             }
 
         return render(request, 'team/service.html' ,context)
@@ -296,8 +296,7 @@ class Owner_index(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(Owner_index, self).get_context_data(**kwargs)
-        merchant = MerchantDetails.objects.get(
-            username__username=self.request.user.username)
+        merchant = MerchantDetails.objects.get(username=self.request.user.username)
         context["hotelname"] = HotelName.objects.filter(owner=merchant)
         context['data'] = merchant
         print(context)
