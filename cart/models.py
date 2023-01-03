@@ -4,6 +4,7 @@ from ongoappfolder.models import *
 class Cart(models.Model):
     cart_id=models.CharField(max_length=250,blank=True)
     date_added=models.DateField(auto_now_add=True)
+    is_purchased = models.BooleanField(default=False)
 
     class Meta:
         db_table='Cart'

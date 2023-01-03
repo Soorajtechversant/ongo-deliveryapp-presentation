@@ -16,6 +16,8 @@ from .models import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .send_sms import sendsms
 from django.urls import reverse
+from projectfolderongo import settings as django_settings
+from django.core.mail import send_mail
 
 
 
@@ -104,7 +106,10 @@ class MerchantRegistration(View):
                                                           email=email, address=address, phn_number=phone, hotel_name=hotelname,
                                                           bussiness_type=businesstype)
                 merchant.save()
-
+                subject = 'Ongo-Delivery Welcome Mail'
+                message = f'Hi {merchant.username}, Welcome to Ongo-Delivery \n \t Where you can find the food to your liking'
+                from_email = django_settings.EMAIL_HOST_USER
+                send_mail(subject, message, from_email, [merchant.email])
                 messages.info(request, 'Merchant registered')
                 return redirect('auth/login')
 

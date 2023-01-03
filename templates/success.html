@@ -8,11 +8,15 @@
   <section>
     <p>
       We appreciate your business! If you have any questions, please mail us at ongodelivery@ongo.com
-
-      <p class="text-center">
-        please click <a href="{% url 'index' %}">here</a> to continue shopping</p>
-    </p>
-     
+      {% if request.user.user_type == 'customer' %}
+        <p class="text-center">
+          please click <a href="{% url 'customer_index' %}">here</a> to continue shopping</p>
+        </p>
+      {% else %}
+        <p class="text-center">
+          please click <a href="{% url 'owner_index' %}">here</a> to continue shopping</p>
+        </p>
+      {% endif %}
     </p>
   </section>
 </body>
