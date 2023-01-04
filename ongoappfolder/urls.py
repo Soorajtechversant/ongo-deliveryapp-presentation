@@ -5,11 +5,10 @@ from .views import *
 
 
 urlpatterns = [
-
-   
+    
     
     #Customer Urls
-    path('',views.Customer_index.as_view(),name="customer_index"),
+    path('',views.Customer_index.as_view(),name="customer_index" , ),
     path('registration',CustomerRegistration.as_view(),name="registration"),
 
     #Merchant Urls
@@ -35,6 +34,7 @@ urlpatterns = [
     path('merchant-approvals/<int:id>',MerchantApproval.as_view(),name="approve_merchant"),
     path('hotelproducts/<name>', HotelProducts.as_view(), name='hotelproducts'),
 
+    path('searchtitles/',searchtitles,name="searchtitles"),
     
     #forgot password urls
     path('forgot-password/generate-otp/', GenerateOTP.as_view(), name='generate_otp'),

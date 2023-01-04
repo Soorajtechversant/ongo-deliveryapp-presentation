@@ -1,4 +1,5 @@
 import os
+import projectfolderongo
 import environ
 from pathlib import Path
 
@@ -30,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'ongoappfolder',
     'cart',
     'chat',
@@ -38,6 +40,8 @@ INSTALLED_APPS = [
     'channels',
     'django_celery_beat',
     'django_celery_results',
+    'whoosh',
+    'haystack',
 ]
 
 MIDDLEWARE = [
@@ -106,6 +110,15 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+WHOOSH_INDEX = os.path.join( 'projectfolderongo/whoosh') 
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': WHOOSH_INDEX,
+    },
+}
 
 
 # Internationalization

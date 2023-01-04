@@ -10,6 +10,6 @@ urlpatterns = [
     path('cart',include('cart.urls' )),
     path('payments/',include('payments.urls' )),
     path('chat/', include('chat.urls')),
-    
+    path('search/', include('haystack.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)#For serving uploaded files

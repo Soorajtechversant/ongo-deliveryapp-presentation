@@ -16,7 +16,6 @@ Ongo Dlivery System
 
 {% block content %}
 
-{% if not cart_items %}
 
 <div class="container-xxl py-5 bg-dark hero-header mb-5">
     <div class="container text-center my-5 pt-5 pb-4">
@@ -34,6 +33,7 @@ Ongo Dlivery System
 </div>
 
 
+{% if not cart_items %}
 
 <div>
     <div class="text-center">
@@ -48,7 +48,10 @@ Ongo Dlivery System
     </div>
 </div>
 <br><br>
+
+
 {% else %}
+
 <div>
     <div class="text-center">
         <br>
@@ -57,6 +60,7 @@ Ongo Dlivery System
         </h1>
         <br>
     </div>
+ 
     <div class="row">
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
             <table class="table my_custom_table">
@@ -140,7 +144,7 @@ Ongo Dlivery System
             </table>
            
             <div class="mx-auto">
-                <a href="{% url 'index' %}" class="btn btn-secondary btn-block my_custom_button">
+                <a href="{% url 'customer_index' %}" class="btn btn-secondary btn-block my_custom_button">
                     continue shopping
                 </a>
             </div>

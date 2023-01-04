@@ -5,12 +5,21 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+
+  <form action= "{% url 'cart:full_remove' cart_item.product.id %}" method="post">
+   
+    {% csrf_token %}
+
+
   <section>
     <p>
       We appreciate your business! If you have any questions, please mail us at ongodelivery@ongo.com
 
       <p class="text-center">
-        please click <a href="{% url 'index' %}">here</a> to continue shopping</p>
+
+
+        please click <a href="{% url 'customer_index' %}">here</a> to continue shopping</p>
     </p>
      
     </p>

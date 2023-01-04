@@ -8,16 +8,11 @@ from django.shortcuts import redirect, render, get_object_or_404
 import json
 from django.urls import reverse
 from django.views.generic import TemplateView
-
 from django.http import HttpResponse, JsonResponse
-
 from ongoappfolder.models import MerchantDetails
 
 
-
 stripe.api_key = settings.STRIPE_SECRET_KEY
-
-
 STRIPE_PUBLISHABLE_KEY= settings.STRIPE_PUBLISHABLE_KEY
 STRIPE_SECRET_KEY=  settings.STRIPE_SECRET_KEY
 

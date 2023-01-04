@@ -423,15 +423,11 @@
         <!-- Menu End -->
 <!-- ##################################################################################################################### -->
 <h1 style="text-align: center;">Available products on live are</h1>
-
     <form action="{% url 'customer_index' %}" method="post">
 
         {% csrf_token %}
 
-        <div>
-
-
-
+        
             <h4 class="text-center alert alert-info">Product Details</h4>
             <div class="row row-cols-1 row-cols-md-3 g-4">
 
@@ -441,18 +437,18 @@
                     <div class="card" style="width: 10rem;">
                         <h6>Order From</h6>
                         <h5 class="card-title">{{ hotelname.hotelname }}</h5>
-
-                        <a href="{% url 'hotelproducts' hotelname.hotelname %}" class="btn btn-primary">Buy
-                            Now</a>
                     </div>
+                        <a href="{% url 'hotelproducts' hotelname.id %}" class="btn btn-primary">Buy
+                            Now</a>
+                   
                 </div>
                 {% endfor %}
 
-            </div>
-        </div>
-</div><br>
+  
 </form>
-<br>
+</div>
+</div>
+
 <!-- looping end -->
 
 <!-- #################################################################################################################### -->

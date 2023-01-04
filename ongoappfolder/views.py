@@ -2,7 +2,6 @@ from django.views import View
 import os
 import stripe
 import pyotp
-
 from django.shortcuts import render
 from django.views.generic import View
 from django.views import View
@@ -16,11 +15,9 @@ from .models import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .send_sms import sendsms
 from django.urls import reverse
+from haystack.query import SearchQuerySet
 
 
-
-    
-  
 class HotelProducts(View):
     @method_decorator(login_required)
     def get(self, request, name):
@@ -119,28 +116,28 @@ class Customer_index(View):
         
         if request.user.is_staff:
             context = {
-                'hotel': HotelName.objects.all(),
+                'hotel': HotelName.objects.all().distinct('hotelname'),
                 'data': UserLoginDetails.objects.get(username=request.user.username)
+            }
+        elif request.user.is_authenticated:
+            context = {
+                'hotel': HotelName.objects.all().distinct('hotelname'),
+                'data': UserDetails.objects.get(username__username=request.user.username)
             }
         else:
             context = {
-                'hotel': HotelName.objects.all(),
-                'data': UserDetails.objects.get(username=request.user.username)
+                'hotel': HotelName.objects.all().distinct('hotelname'),
             }
 
-        # print(HotelName.objects.all())
-        
-            
-        
         return render(request, 'home.html', context)
 
 
-class About(View):
+class About(LoginRequiredMixin,View):
      def get(self, request): 
         
         context = {
                 'hotel': HotelName.objects.all(),
-                'data': UserDetails.objects.all()
+                'data': UserDetails.objects.get(username__username=request.user.username)
             }
 
         return render(request, 'team/about.html' , context)
@@ -157,11 +154,14 @@ class Contact(View):
         
         return render(request, 'team/contact.html' , context)
 
-class Services(View):
+
+class Services(LoginRequiredMixin,View):
+
+
      def get(self, request): 
         context = {
-                'hotel': HotelName.objects.all(),
-                'data': UserDetails.objects.get(username=request.user.username)
+               
+                'data': UserDetails.objects.get(username__username=request.user.username)
             }
 
         return render(request, 'team/service.html' ,context)
@@ -209,6 +209,7 @@ class Login(View):
 class Logout(LoginRequiredMixin, View):
     def get(self, request):
         auth.logout(request)
+        
         return redirect('customer_index')
 
 
@@ -257,9 +258,9 @@ class CustomerProfile(LoginRequiredMixin, ListView):
         #         os.remove(data.profile_pic.path)
         
         if request.FILES:
-            data.profile_pic = request.FILES['profile_pic']
+         data.profile_pic = request.FILES['profile_pic']
 
-
+  
         data.first_name = request.POST['first_name']
         data.last_name = request.POST['last_name']
         data.address = request.POST['address']
@@ -296,7 +297,7 @@ class Owner_index(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(Owner_index, self).get_context_data(**kwargs)
-        merchant = MerchantDetails.objects.get(username=self.request.user.username)
+        merchant = MerchantDetails.objects.get(username__username=self.request.user.username)
         context["hotelname"] = HotelName.objects.filter(owner=merchant)
         context['data'] = merchant
         print(context)
@@ -492,3 +493,10 @@ class ForgotPasswordChange(View):
                 return render(request, 'products/registration/forgot_password_change.html', context={'user_id': id})
 
 
+def searchtitles(request):
+   
+        hotelname = SearchQuerySet().autocomplete(content_auto=request.POST.get('search_text' , ''))
+        #foodname = SearchQuerySet().autocomplete(content_auto=request.POST.get('search_text' , ''))
+        #return render(request, 'a_search.html',{'hotelname':hotelname ,'foodname':foodname})
+        return render(request, 'a_search.html',{'hotelname':hotelname})
+     
