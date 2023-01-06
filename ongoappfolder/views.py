@@ -166,18 +166,6 @@ class Services(LoginRequiredMixin,View):
 
         return render(request, 'team/service.html' ,context)
 
-# class Index(View):
-    
-#     def get(self, request): 
-#         context = {
-#             'hotel': HotelName.objects.all(),
-#         }
-#         # print(HotelName.objects.all())
-        
-#         return render(request, 'home.html', context)
-
-# Common Login page
-
 
 class Login(View):
     def get(self, request):
@@ -249,27 +237,39 @@ class CustomerProfile(LoginRequiredMixin, ListView):
     def post(self, request):
         if request.user.user_type == 'customer':
             data = UserDetails.objects.get(username__username=request.user.username )
+            if request.FILES:
+                data.profile_pic = request.FILES['profile_pic']
+                data.first_name = request.POST['first_name']
+                data.last_name = request.POST['last_name']
+                data.address = request.POST['address']
+                data.email = request.POST.get('email', None)
+
+                data.save()
+
+                messages.success(request, " Updated Successfully")
+
+            return redirect('customer_index')
         elif request.user.user_type == 'merchant':
             data = MerchantDetails.objects.get(username__username=request.user.username )
+            if request.FILES:
+                data.profile_pic = request.FILES['profile_pic']
+                data.first_name = request.POST['first_name']
+                data.last_name = request.POST['last_name']
+                data.address = request.POST['address']
+                data.email = request.POST.get('email', None)
+
+                data.save()
+
+                messages.success(request, " Updated Successfully")
+
+            return redirect('owner_index')
         else:
             data = UserLoginDetails.objects.get(username=request.user.username )
         # if len(request.FILES) != 0:
         #     if len(data.profile_pic) > 0:
         #         os.remove(data.profile_pic.path)
         
-        if request.FILES:
-         data.profile_pic = request.FILES['profile_pic']
-
-  
-        data.first_name = request.POST['first_name']
-        data.last_name = request.POST['last_name']
-        data.address = request.POST['address']
-        data.email = request.POST['email']
-        data.save()
-
-        messages.success(request, " Updated Successfully")
-
-        return redirect('customer_index')
+        
 
     def get(self, request):
         # data = UserLoginDetails.objects.get(username=request.user.username)
@@ -313,6 +313,7 @@ class Owner_index(LoginRequiredMixin, TemplateView):
 # forloop
 
 class Add_product(LoginRequiredMixin, View):
+
     form_class = HotelForm
 
     def get(self, request):
@@ -496,7 +497,7 @@ class ForgotPasswordChange(View):
 def searchtitles(request):
    
         hotelname = SearchQuerySet().autocomplete(content_auto=request.POST.get('search_text' , ''))
-        #foodname = SearchQuerySet().autocomplete(content_auto=request.POST.get('search_text' , ''))
-        #return render(request, 'a_search.html',{'hotelname':hotelname ,'foodname':foodname})
+        foodname = SearchQuerySet().autocomplete(content_auto=request.POST.get('search_text' , ''))
+        return render(request, 'a_search.html',{'hotelname':hotelname ,'foodname':foodname})
         return render(request, 'a_search.html',{'hotelname':hotelname})
      

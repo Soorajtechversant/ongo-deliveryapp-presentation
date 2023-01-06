@@ -3,10 +3,12 @@
 {% block content %}
 
 {% load static %}
+
 <head>
 
     <title>Profile page</title>
- </head>
+</head>
+
 <body>
 
     <div class="container-xxl py-5 bg-dark hero-header mb-5">
@@ -17,7 +19,7 @@
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item"><a href="#">Sign-Up</a></li>
                     <li class="breadcrumb-item"><a href="#">About-Us</a></li>
-                   
+
                 </ol>
             </nav>
         </div>
@@ -67,7 +69,7 @@
                                             value="{{ data.username }}" disabled>
 
                                     </div>
-</div>
+                                </div>
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
                                         <h6 class="mb-0"> First_Name</h6>
@@ -111,7 +113,8 @@
                                         <h6 class="mb-0">Email</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="text" name="email" class="form-control" value="{{ user.email }}">
+                                        <input type="text" name="email" class="form-control" value="{{ user.email }}"
+                                            disabled>
                                     </div>
                                 </div>
 
@@ -137,7 +140,7 @@
 
 
                                 <input type="file" name="profile_pic">
-                          
+
 
                             </div>
                             <!-- </div> -->

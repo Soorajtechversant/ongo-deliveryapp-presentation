@@ -26,12 +26,7 @@
 
 
 <body>
-
-
     {% if user.is_authenticated and user.is_staff %}
-
-
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
         <div class="container-fluid">
             <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"></i>Ongo-Delivery</h1>
@@ -41,7 +36,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a href="{% url 'customer_index'  %}" class="nav-item nav-link active">Home</a>
+                <a href="{% url 'approvals'  %}" class="nav-item nav-link active">Home</a>
               </li>
               <li class="nav-item">
                 <a href="{% url 'about'  %}" class="nav-item nav-link">About</a>
@@ -97,7 +92,7 @@
     {% elif request.user.user_type == 'customer' %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-7 py-3 py-lg-0">
         <div class="container-fluid">
-            <h1 class="text-primary m-0"><i class="fa fa-utensils me-3" a href="{% url 'customer_index'  %}" class="nav-item nav-link" ></i>Ongo-Home</h1>
+            <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"  class="nav-item nav-link" ></i>Ongo-<a href="{% url 'customer_index'  %}">Home</a></h1>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -105,7 +100,7 @@
             <ul class="navbar-nav me-auto mb-4 mb-lg-0">
 
               <li class="nav-item">
-                <a href="{% url 'profile'  %}" class="nav-item nav-link">{{user.username}}<img src="{{ data.profile_pic.url }}" alt="img" class="rounded-circle p- bg-primary"  class="d-flex" height="40"
+                <a href="{% url 'profile'  %}" class="nav-item nav-link">hi {{user.username}}<img src="{{ data.profile_pic.url }}" alt="img" class="rounded-circle p- bg-primary"  class="d-flex" height="40"
                     width="40"> </a> </li>
 
               
@@ -214,14 +209,7 @@
               <li class="nav-item">
                 <a href="{% url 'services'  %}" class="nav-item nav-link">Service</a>
               </li>
-              <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Log in</a>
-                <div class="dropdown-menu m-0">
-                    <a href="{% url 'login'  %}" class="dropdown-item">Log In</a>
-                    <a href="{% url 'registration'  %}" class="dropdown-item">Sign Up</a>
-                    <a href="{% url 'merchantregistration'  %}" class="dropdown-item">Merchant Sign Up</a>
-                </div>
-            </div>
+             
               <li class="nav-item">
                 <a href="{% url 'chat:chat'  %}" class="nav-item nav-link">Chat</a>
               </li>
@@ -238,7 +226,18 @@
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
               </li>
-            </ul>
+           
+
+            <div class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Log in</a>
+              <div class="dropdown-menu m-0">
+                  <a href="{% url 'login'  %}" class="dropdown-item">Log In</a>
+                  <a href="{% url 'registration'  %}" class="dropdown-item">Sign Up</a>
+                  <a href="{% url 'merchantregistration'  %}" class="dropdown-item">Merchant Sign Up</a>
+              </div>
+          </div>
+        </ul>
+
             <ul >
             <form action="{% url 'searchtitles'  %}" method="post" class="d-flex">
                 {% csrf_token %}
