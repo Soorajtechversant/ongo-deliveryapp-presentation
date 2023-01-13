@@ -17,6 +17,7 @@ def add_cart(request,product_id):
     
     product=HotelName.objects.get(id=product_id)
     print('product ;',product)
+   
     try:
         cart=Cart.objects.get(cart_id=_cart_id(request))
     except Cart.DoesNotExist:
@@ -26,14 +27,20 @@ def add_cart(request,product_id):
         cart.save(),
     try:
         cart_item=CartItem.objects.get(product=product,cart=cart)
+        # if cart_item.quantity < cart_item.product.stock:
+        print(cart_item.product.stock)
         if cart_item.quantity < cart_item.product.stock:
             cart_item.quantity+=1
+            product.stock=product.stock-cart_item.quantity
+            product.save()
+        cart_item.active=True    
         cart_item.save()
     except CartItem.DoesNotExist:
         cart_item=CartItem.objects.create(
             product=product,
-            quantity=1,
-            cart=cart
+            quantity= 1 ,
+            cart=cart ,
+            active= True
         )
         cart_item.save()
     return redirect('cart:cart_detail')

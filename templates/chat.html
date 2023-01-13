@@ -1,0 +1,66 @@
+{% extends 'products/shared/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+
+<body>
+    <div class="container">
+      <br><br>
+        <h1 style="text-align: center;">Chat</h1>
+        <hr>
+        <div class="container m-5">
+            
+            <table class="table my_custom_table">
+                <thead class="my_custom_thead">
+                    <tr>
+                        <th colspan="5">
+                            Your contacts
+                        </th>
+                    </tr>
+                </thead>
+                {% if merchants %}
+                <tbody>
+                    {% for merchant in merchants %}
+                    <tr>
+                        
+                        <td class="text-left">
+                            <h4>
+                                Name:</h4> {{ merchant.username }}
+                        </td>
+                        <td>
+                            <a href="{% url 'chat:messages' merchant.id %}" cls="btn btn-primary"> chat</a>
+                            
+                        </td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                {% endif %}
+                {% if customers %}
+                <tbody>
+                    {% for customer in customers %}
+                    <tr>
+
+                        <td class="text-left">
+                            <h4>
+                                Name:</h4> {{ customer.username }}
+                        </td>
+                        <td>
+                            <a href="{% url 'chat:messages' customer.id %}" cls="btn btn-primary"> chat</a>
+
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                {% endif %}
+            </table>
+                
+           
+        </div>   
+    </div>
+
+
+{% endblock content %}

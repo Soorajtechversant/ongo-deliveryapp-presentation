@@ -14,7 +14,7 @@ html {
 .card {
   height: 90%;
   border-radius: 15px !important;
-  background-color: rgb(75, 1, 1) !important;
+  background-color: rgb(255, 255, 255) !important;
 }
 .contacts_body {
   padding: 0.75rem 0 !important;

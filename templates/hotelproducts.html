@@ -46,10 +46,11 @@
                         <p class="card-text">Ingredients : {{ hotelname.ingredients }}</p>
                         <p class="card-text">Price : INR {{ hotelname.price}}</p>
 
+                    
 
                       <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
                     </div>
-                      <a href="{% url 'cart:add_cart' hotelname.id %}" class="btn btn-primary">Add to
+                      <a href="{% url 'cart:add_cart' product_id=hotelname.id %}" class="btn btn-primary">Add to
                         Cart</a>
                    
                   </div>
@@ -58,6 +59,7 @@
 
     </div>
     </form>
+    </div>
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

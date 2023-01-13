@@ -7,7 +7,8 @@
 <body>
 
 
-  <form action= "{% url 'cart:full_remove' cart_item.product.id %}" method="post">
+  {% if user.is_authenticated and user.user_type == 'customer' %}
+
    
     {% csrf_token %}
 
@@ -24,5 +25,26 @@
      
     </p>
   </section>
+
+{% else %}
+
+
+{% csrf_token %}
+
+
+<section>
+  <p>
+    We appreciate your business! If you have any questions, please mail us at ongodelivery@ongo.com
+
+    <p class="text-center">
+
+
+      please click <a href="{% url 'owner_index' %}">here</a> to continue shopping</p>
+  </p>
+   
+  </p>
+</section>
+
+{% endif %}
 </body>
 </html>

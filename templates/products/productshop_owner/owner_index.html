@@ -12,7 +12,11 @@
   <title>Admin page</title>
 
 </head>
-
+<style>
+  #myModal {width: 100%;}
+</style>
+<script type="text/javascript" src="/test/wp-content/themes/child/script/jquery.jcarousel.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 
   $(document).ready(function () {
@@ -58,8 +62,11 @@
         <p>You are under manual approval process... Please wait.. <br>we will let you know when you are approved.</p>
         
         <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+        <br>
+        
+        <br>
       </div>
-      <a href="{% url 'subscription:premium' %}" class="btn btn-primary">Subscribe</a>
+      
 
     </div>
     <br><br>

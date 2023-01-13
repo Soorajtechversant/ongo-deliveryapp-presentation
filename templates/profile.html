@@ -9,6 +9,7 @@
     <title>Profile page</title>
 </head>
 
+{% if user.is_authenticated and request.user.user_type == 'customer' %}
 <body>
 
     <div class="container-xxl py-5 bg-dark hero-header mb-5">
@@ -157,6 +158,11 @@
                                     <input type="submit" class="btn btn-primary px-4" value="Save Changes">
                                     <br>
                                 </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9 text-secondary">
+                                <a href="{% url 'delete_account' data.id %}"  class="btn btn-danger px-4">Delete Account </a>
+                            </div>  </div>  </div>
                             </div>
                             <br>
                         </div>
@@ -166,6 +172,207 @@
         </div>
         </div>
     </form>
+
+
+{% elif user.is_authenticated and request.user.user_type == 'merchant' %}
+
+
+
+<div class="container-xxl py-5 bg-dark hero-header mb-5">
+    <div class="container text-center my-5 pt-5 pb-4">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Profile</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center text-uppercase">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Sign-Up</a></li>
+                <li class="breadcrumb-item"><a href="#">About-Us</a></li>
+
+            </ol>
+        </nav>
+    </div>
+</div>
+</div>
+
+
+<form action="{% url 'profile' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <div class="container" style="border:1px solid black">
+        <div class="main-body">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+
+                                {% if data.profile_pic %}
+                                <img src="{{ data.profile_pic.url }}" alt="img"
+                                    class="rounded-circle p-1 bg-primary" height="200" width="200">
+                                {% else %}
+                                <img src="{% static 'img/download.png'%}" alt="img"
+                                    class="rounded-circle p-1 bg-primary" height="200" width="200">
+                                {% endif %}
+
+                                <div class="mt-3">
+                                    <h4>Edit changes</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mb-3">
+
+                            </div>
+
+
+
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">User Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" name="username" class="form-control"
+                                        value="{{ data.username }}" disabled>
+
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0"> First_Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" name="first_name" class="form-control"
+                                        value="{{ data.first_name }}">
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Last Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" name="last_name" class="form-control"
+                                        value="{{ data.last_name }}">
+
+                                </div>
+
+
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Address</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" name="address" class="form-control"
+                                        value="{{ data.address }}">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" name="email" class="form-control" value="{{ user.email }}"
+                                        disabled>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Business Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" name="hotel_name" class="form-control" value="{{ data.hotel_name }}"
+                                        disabled>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Business Type</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" name="business_type" class="form-control" value="{{ data.business_type }}"
+                                        disabled>
+                                </div>
+                            </div>
+
+
+
+                        
+
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Profile Pic</h6>
+                                </div>
+                                {% if data.profile_pic %}
+                                <div class="card" style="width: 14rem;">
+                                    <img src="{{ data.profile_pic.url }}" class="card-img-top" alt="image">
+
+                                </div>
+                                {% else %}
+                                <div>
+                                    <img src="{% static 'img/download.png'%}" alt="img"
+                                        class="rounded-circle p-1 bg-primary" height="200" width="200">
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <h6 class="mb-0">Change</h6>
+
+
+
+                            <input type="file" name="profile_pic">
+
+
+                        </div>
+                        <!-- </div> -->
+
+
+
+                        <div class="row mb-3">
+
+
+                        </div><br>
+                        <div class="row">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-9 text-secondary">
+                                <input type="submit" class="btn btn-primary px-4" value="Save Changes">
+                                <br>
+                            </div>
+                            <a href="{% url 'delete_account' data.id  %}"  class="btn btn-danger px-4">Delete Account </a>
+                          
+                            <div> <h7 text-align="center ">Send an email requesting,  if there is change in Username, BusinessName and Email address </h7>
+                            <a href="{% url 'contact'  %}" class="btn btn-primary py-1 px-4" >Mail Us</a> </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</form>
+
+{% else %}
+
+
+{% endif %}
+
+
 
     <!-- Optional JavaScript; choose one of the two! -->
 

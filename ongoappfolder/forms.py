@@ -9,13 +9,13 @@ from ongoappfolder.models import  HotelName
 class HotelForm(forms.ModelForm):
     class Meta:
         model = HotelName
-        fields = ('food','ingredients','price','hotelimage','productpicture')
+        fields = ('food','ingredients','stock','price','hotelimage','productpicture' ,)
 
     def save(self, request):
         
         owner = MerchantDetails.objects.get(
                     username__username=request.user.username)
-        hotel = HotelName(food=self.cleaned_data['food'],ingredients=self.cleaned_data['ingredients'],price=self.cleaned_data['price'],hotelimage=self.cleaned_data['hotelimage'],productpicture=self.cleaned_data['productpicture'])
+        hotel = HotelName(food=self.cleaned_data['food'],ingredients=self.cleaned_data['ingredients'],price=self.cleaned_data['price'],hotelimage=self.cleaned_data['hotelimage'],productpicture=self.cleaned_data['productpicture'], stock=self.cleaned_data['stock'])
         hotel.owner = owner
         hotel.hotelname= owner.hotel_name
         

@@ -13,10 +13,9 @@ class Cart(models.Model):
         return '{}' .format(self.cart_id)
 
 class CartItem(models.Model):
-    product=models.ForeignKey(HotelName ,
-     on_delete=models.CASCADE)
+    product=models.ForeignKey(HotelName ,on_delete=models.CASCADE)
     cart=models.ForeignKey(Cart,on_delete=models.CASCADE)
-    quantity=models.IntegerField()
+    quantity=models.IntegerField(default=1)
     active=models.BooleanField(default=True)
 
     class Meta:

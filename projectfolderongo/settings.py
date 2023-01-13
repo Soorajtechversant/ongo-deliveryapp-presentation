@@ -173,20 +173,6 @@ STATICFILES_DIRS= [os.path.join(BASE_DIR, "static")]
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 MEDIA_URL='media/'
 
-#email
-
-
-#email_backend
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'soorajsbusiness@gmail.com'
-EMAIL_HOST_PASSWORD = 'xqcomatfmtvfdlrw'
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-
-
 
 CORS_ALLOWED_ORIGINS = [
     "https://example.com",
@@ -211,3 +197,12 @@ CHANNEL_LAYERS = {
         # }
     }
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER ='codewithsoorajpkd@gmail.com'
+EMAIL_HOST_PASSWORD ='sjsiytngoaibhlls'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+

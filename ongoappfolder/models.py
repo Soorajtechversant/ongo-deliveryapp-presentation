@@ -16,7 +16,6 @@ class UserLoginDetails(AbstractUser):
     otp = models.IntegerField(blank=True, null=True, default=None)
     otp_activation_key = models.CharField(max_length=255, blank=True, null=True)
     
-
     def __str__(self):
         return self.username
 
@@ -33,7 +32,7 @@ class MerchantDetails(models.Model):
     phn_number = models.CharField(max_length=255,blank=True)
     profile_pic = models.FileField(upload_to="profile_pic/")
     hotel_name = models.CharField(max_length=255,blank=True)
-    bussiness_type = models.CharField(max_length=255,blank=True)
+    business_type = models.CharField(max_length=255,blank=True)
     is_approved = models.BooleanField(default=False)
     is_subscribed = models.BooleanField(default=False)
 
@@ -75,6 +74,7 @@ class HotelName(models.Model):
     # hotelimage = models.ImageField(upload_to= 'media',null=True,blank=True)
     hotelimage = models.ImageField(upload_to= 'media/hotel',null=True,blank=True)
     productpicture = models.ImageField(upload_to = 'media',null=True,blank = True)
+    stock = models.IntegerField(default=50 )
 
     def __str__(self):
         return self.hotelname

@@ -52,8 +52,12 @@ class SuccessView(TemplateView):
         context = super(SuccessView, self).get_context_data(**kwargs)
         cart = Cart.objects.get(id=kwargs['id'])
         cart_items = CartItem.objects.filter(cart=cart)
+
         for items in cart_items:
+
             Report.objects.create(cart_id=cart, cart_items=items, amount=items.product.price, hotel=items.product.owner)
+            items.active=False
+            items.save()
         return context
 
 

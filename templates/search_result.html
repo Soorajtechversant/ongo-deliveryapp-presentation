@@ -1,0 +1,57 @@
+{% extends 'products/shared/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+ <div class="container-xxl py-5 bg-dark hero-header mb-5">
+        <div class="container text-center my-5 pt-5 pb-4">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Order Now</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center text-uppercase">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Team</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    </div>
+
+
+
+{% for objects in product %}
+
+
+<div class="card" style="width: 18rem;">
+    <img src="{{ objects.productpicture.url }}" class="card-img-top" alt="image">
+    
+    <div class="card-body">
+        
+        <h5 class="card-title">{{ objects.hotelname }}</h5>
+
+        <h5 class="card-title">{{ objects.food }}</h5>
+        <p class="card-text">Ingredients : {{ objects.ingredients }}</p>
+        <p class="card-text">Price : INR {{ objects.price}}</p>
+
+    
+</div>
+<a href="{% url 'cart:add_cart' product_id=objects.id %}" class="btn btn-primary">Add to
+    Cart</a>
+</div>
+  <br>
+
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}

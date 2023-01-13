@@ -73,6 +73,7 @@ Ongo Dlivery System
                 </thead>
                 <tbody>
                     {% for cart_item in cart_items %}
+                    {% if cart_item  %}
                     <tr>
                         <td>
 
@@ -110,6 +111,13 @@ Ongo Dlivery System
                             </td>
                             {% endif %}
                     </tr>
+                    {% else %}
+                    
+
+                    <h1 class="text-center my_title">
+                        Shopping cart  empty
+                   </h1>
+                   {% endif %}
                     {% endfor %}
                 </tbody>
             </table>

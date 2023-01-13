@@ -28,13 +28,18 @@
 
 {% for hotelname in hotelname %}
 
- <li><a href="{{hotelname.objects.get_absolute_url}}/">{{hotelname.object.hotelname}} </a> </li>
- {% endfor %}
+<li><a href="{% url 'get_product' hotelname.object.id %}">{{hotelname.object.hotel_name}} </a> </li>
+{% endfor %}
 
- {% else %}
+{% else %}
+{% for food in hotelname %}
 
- <li> None to show </li>
+<li><a href="{{food.objects.get_absolute_url}}">{{hotelname.object.food}} </a> </li>
+{% endfor %}
 
- {% endif %}
+<li>Oops....! No results Found </li>
+<h6>Please Try Again</h6>
 
- {% endblock content %}
+{% endif %}
+
+{% endblock content %}
