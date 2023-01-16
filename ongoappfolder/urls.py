@@ -28,6 +28,7 @@ urlpatterns = [
     path('services/', Services.as_view(), name='services'),
     path('contact/', Contact.as_view(), name='contact'),
     path('get_product/<id>', get_product_view, name='get_product'),
+    path('get_food/<id>', get_food_view, name='get_food'),
     path('searchtitles/',searchtitles,name="searchtitles"),
 
     #Admin Urls

@@ -592,7 +592,19 @@ def get_product_view(request , id):
        
             'data': UserDetails.objects.get(username__username=request.user.username)
         }
-    return render(request,'search_result.html' , {'product' : product , 'context': context}   )
+    return render(request,'search_result.html' , {'product' : product , 'context': context }   )
+
+
+def get_food_view(request , id):
+
+    food = HotelName.objects.get(pk=id)
+
+    context = {
+            'food': food,
+       
+            'data': UserDetails.objects.get(username__username=request.user.username)
+        }
+    return render(request,'search_result.html' , {'food' : food , 'context': context }   )
 
 
 

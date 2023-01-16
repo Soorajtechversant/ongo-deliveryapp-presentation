@@ -1,57 +1,91 @@
 {% extends 'products/shared/base.html' %}
 {% load static %}
-
 {% block content %}
 
 
 
- <div class="container-xxl py-5 bg-dark hero-header mb-5">
-        <div class="container text-center my-5 pt-5 pb-4">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">Order Now</h1>
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb justify-content-center text-uppercase">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">Team</li>
-                </ol>
-            </nav>
-        </div>
+<div class="container-xxl py-5 bg-dark hero-header mb-5">
+    <div class="container text-center my-5 pt-5 pb-4">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Order Now</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center text-uppercase">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item text-white active" aria-current="page">Team</li>
+            </ol>
+        </nav>
     </div>
-    </div>
+</div>
+</div>
 
 
 
-{% for objects in product %}
+<div class="container"></div>
+<div class="row row-cols-1 row-cols-md-3 g-4"></div>
+
+    <h4 class="text-center alert alert-info">Product Details</h4>
+
+{% if food  %}
 
 
+  
 <div class="card" style="width: 18rem;">
-    <img src="{{ objects.productpicture.url }}" class="card-img-top" alt="image">
-    
+    <img src="{{ food.productpicture.url }}" class="card-img-top" alt="image">
+
     <div class="card-body">
-        
-        <h5 class="card-title">{{ objects.hotelname }}</h5>
 
-        <h5 class="card-title">{{ objects.food }}</h5>
-        <p class="card-text">Ingredients : {{ objects.ingredients }}</p>
-        <p class="card-text">Price : INR {{ objects.price}}</p>
+        <h5 class="card-title">{{ food.hotelname }}</h5>
 
-    
+        <h5 class="card-title">{{ food.food }}</h5>
+        <p class="card-text">Ingredients : {{ food.ingredients }}</p>
+        <p class="card-text">Price : INR {{ food.price}}</p>
+
+
+        <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+    </div>
+    <a href="{% url 'cart:add_cart' product_id=food.id %}" class="btn btn-primary">Add to
+        Cart</a>
+
 </div>
-<a href="{% url 'cart:add_cart' product_id=objects.id %}" class="btn btn-primary">Add to
-    Cart</a>
 </div>
-  <br>
+</div>
 
+
+
+
+<br> <br> <br>
+
+
+{% else %}
+
+    {% for objects in product %}
+
+  
+    <div class="card" style="width: 18rem;">
+        <img src="{{ objects.productpicture.url }}" class="card-img-top" alt="image">
+
+        <div class="card-body">
+
+            <h5 class="card-title">{{ objects.hotelname }}</h5>
+
+            <h5 class="card-title">{{ objects.food }}</h5>
+            <p class="card-text">Ingredients : {{ objects.ingredients }}</p>
+            <p class="card-text">Price : INR {{ objects.price}}</p>
+
+
+            <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+        </div>
+        <a href="{% url 'cart:add_cart' product_id=objects.id %}" class="btn btn-primary">Add to
+            Cart</a>
+
+    </div>
+</div>
+</div>
+
+
+
+
+<br> <br> <br>
 {% endfor %}
-
-
-
-
-
-
-
-
-
-
-
+{% endif %}
 {% endblock content %}

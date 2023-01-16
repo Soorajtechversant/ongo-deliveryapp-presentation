@@ -27,15 +27,21 @@
 {% if hotelname.count > 0 %}
 
 {% for hotelname in hotelname %}
+{% if hotelname.object.hotel_name %}
+
 
 <li><a href="{% url 'get_product' hotelname.object.id %}">{{hotelname.object.hotel_name}} </a> </li>
+{% else %}
+<li><a href="{% url 'get_food' hotelname.object.id %}">{{hotelname.object.food}} </a> </li>
+
+{% endif %}
 {% endfor %}
 
 {% else %}
-{% for food in hotelname %}
 
-<li><a href="{{food.objects.get_absolute_url}}">{{hotelname.object.food}} </a> </li>
-{% endfor %}
+
+
+
 
 <li>Oops....! No results Found </li>
 <h6>Please Try Again</h6>
