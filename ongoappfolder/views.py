@@ -585,26 +585,27 @@ def get_product_view(request , id):
     
     merchant= MerchantDetails.objects.get(pk=id)
     product = merchant.hotelname_set.all()
+    data = UserDetails.objects.get(username__username=request.user.username)
     print(product)
     product_details = HotelName.objects.filter(id=id)
     context = {
             'hotel': product_details,
        
-            'data': UserDetails.objects.get(username__username=request.user.username)
+            'data': data
         }
-    return render(request,'search_result.html' , {'product' : product , 'context': context }   )
+    return render(request,'search_result.html' , {'product' : product , 'context': context ,  'data': data }   )
 
 
 def get_food_view(request , id):
 
     food = HotelName.objects.get(pk=id)
-
+    data = UserDetails.objects.get(username__username=request.user.username)
     context = {
             'food': food,
        
-            'data': UserDetails.objects.get(username__username=request.user.username)
+            'data': data ,
         }
-    return render(request,'search_result.html' , {'food' : food , 'context': context }   )
+    return render(request,'search_result.html' , {'food' : food , 'context': context ,  'data': data }   )
 
 
 
